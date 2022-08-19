@@ -265,7 +265,7 @@
                 <Editable v-model="config.footerText" tag="div" :contenteditable="enableEditMode" :noNL="false" class="alert-heading p-2" />
 
                 <p v-if="config.showPoweredBy">
-                    {{ $t("Powered by") }} Status Up
+                    {{ $t("Powered by") }} Pidzorna
                 </p>
             </footer>
         </div>
