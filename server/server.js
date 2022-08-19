@@ -23,7 +23,7 @@ log.info("server", "Welcome to Uptime Kuma");
 log.debug("server", "Arguments");
 log.debug("server", args);
 
-if (! process.env.NODE_ENV) {
+if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = "production";
 }
 
@@ -94,7 +94,7 @@ if (hostname) {
     log.info("server", "Custom hostname: " + hostname);
 }
 
-const port = [ args.port, process.env.UPTIME_KUMA_PORT, process.env.PORT, 3001 ]
+const port = [args.port, process.env.UPTIME_KUMA_PORT, process.env.PORT, 3001]
     .map(portValue => parseInt(portValue))
     .find(portValue => !isNaN(portValue));
 
@@ -650,7 +650,7 @@ let needSetup = false;
             try {
                 checkLogin(socket);
 
-                let bean = await R.findOne("monitor", " id = ? ", [ monitor.id ]);
+                let bean = await R.findOne("monitor", " id = ? ", [monitor.id]);
 
                 if (bean.user_id !== socket.userID) {
                     throw new Error("Permission denied.");
@@ -914,7 +914,7 @@ let needSetup = false;
             try {
                 checkLogin(socket);
 
-                let bean = await R.findOne("monitor", " id = ? ", [ tag.id ]);
+                let bean = await R.findOne("monitor", " id = ? ", [tag.id]);
                 bean.name = tag.name;
                 bean.color = tag.color;
                 await R.store(bean);
@@ -936,7 +936,7 @@ let needSetup = false;
             try {
                 checkLogin(socket);
 
-                await R.exec("DELETE FROM tag WHERE id = ? ", [ tagID ]);
+                await R.exec("DELETE FROM tag WHERE id = ? ", [tagID]);
 
                 callback({
                     ok: true,
@@ -1027,7 +1027,7 @@ let needSetup = false;
             try {
                 checkLogin(socket);
 
-                if (! password.newPassword) {
+                if (!password.newPassword) {
                     throw new Error("Invalid new password");
                 }
 
@@ -1229,7 +1229,7 @@ let needSetup = false;
                         const exists = proxies.find(item => item.id === proxy.id);
 
                         // Do not process when proxy already exists in import handle is skip and keep
-                        if ([ "skip", "keep" ].includes(importHandle) && !exists) {
+                        if (["skip", "keep"].includes(importHandle) && !exists) {
                             return;
                         }
 
@@ -1321,7 +1321,7 @@ let needSetup = false;
                                     ]);
 
                                     let tagId;
-                                    if (! tag) {
+                                    if (!tag) {
                                         // -> If it doesn't exist, create new tag from backup file
                                         let beanTag = R.dispense("tag");
                                         beanTag.name = oldTag.name;
@@ -1530,7 +1530,7 @@ async function checkOwner(userID, monitorID) {
         userID,
     ]);
 
-    if (! row) {
+    if (!row) {
         throw new Error("You do not own this monitor.");
     }
 }
@@ -1575,7 +1575,7 @@ async function afterLogin(socket, user) {
  * @returns {Promise<void>}
  */
 async function initDatabase(testMode = false) {
-    if (! fs.existsSync(Database.path)) {
+    if (!fs.existsSync(Database.path)) {
         log.info("server", "Copying Database");
         fs.copyFileSync(Database.templatePath, Database.path);
     }
@@ -1591,7 +1591,7 @@ async function initDatabase(testMode = false) {
         "jwtSecret",
     ]);
 
-    if (! jwtSecretBean) {
+    if (!jwtSecretBean) {
         log.info("server", "JWT secret is not found, generate one.");
         jwtSecretBean = await initJWTSecret();
         log.info("server", "Stored JWT secret into database");
